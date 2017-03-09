@@ -116,7 +116,7 @@ def parse(fn, DEF_INDENT=2):
             raw_key_values.update(block)
 
     logging.debug('File state after parse: %s' % fin)
-    a_dict = dict([(key, value) for key, value in raw_key_values.items()])
+    a_dict = {key: value for key, value in raw_key_values.items()}
     return a_dict
 
 

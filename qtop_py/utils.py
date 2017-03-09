@@ -215,4 +215,4 @@ class CountCalls(object):
     @staticmethod
     def counts():
         "Return a dict of {function: # of calls} for all registered functions."
-        return dict([(f.__name__, CountCalls.__instances[f].__numcalls) for f in CountCalls.__instances])
+        return {f.__name__: CountCalls.__instances[f].__numcalls for f in CountCalls.__instances}
