@@ -121,9 +121,9 @@ class OARBatchSystem(GenericBatchSystem):
             raise
         data = yaml.safe_load(fn_s, DEF_INDENT=4)
         if self.options.ANONYMIZE:
-            nodes_resids = dict([(anonymize(node, 'wns'), resid_state.items()) for node, resid_state in data.items()])
+            nodes_resids = {anonymize(node, 'wns'): resid_state.items() for node, resid_state in data.items()}
         else:
-            nodes_resids = dict([(node, resid_state.items()) for node, resid_state in data.items()])
+            nodes_resids = {node: resid_state.items() for node, resid_state in data.items()}
         return nodes_resids
 
     def _read_oarnodes_y_textyaml(self, fn):
@@ -137,7 +137,7 @@ class OARBatchSystem(GenericBatchSystem):
                 oar_node, line = self._read_oar_node_y_textyaml(fin, line)
                 oar_nodes.update(oar_node)
 
-        resids_jobs = dict([(resid, info['jobs']) for resid, info in oar_nodes.items()])
+        resids_jobs = {resid: info['jobs'] for resid, info in oar_nodes.items()}
         return resids_jobs
 
     @staticmethod

@@ -201,7 +201,7 @@ def load_yaml_config():
     logging.info('Updated main dictionary. Length: %s items' % len(config))
 
     config['possible_ids'] = list(config['possible_ids'])
-    symbol_map = dict([(chr(x), x) for x in range(33, 48) + range(58, 64) + range(91, 96) + range(123, 126)])
+    symbol_map = {chr(x): x for x in range(33, 48) + range(58, 64) + range(91, 96) + range(123, 126)}
 
     if config['user_color_mappings']:
         user_to_color = user_to_color_default.copy()
@@ -1119,7 +1119,7 @@ class WNOccupancy(object):
                     wn_vert_labels[str(place + 1)].append(string[place])
         else:
             node_str_width = len(str(highest_wn))  # 4
-            wn_vert_labels = dict([(str(place), []) for place in range(1, node_str_width + 1)])
+            wn_vert_labels = {str(place): [] for place in range(1, node_str_width + 1)}
             for nr in range(1, highest_wn + 1):
                 extra_spaces = node_str_width - len(str(nr))  # 4 - 1 = 3, for wn0001
                 string = "".join("0" * extra_spaces + str(nr))
@@ -2027,8 +2027,8 @@ class Cluster(object):
         for node in range(1, self.highest_wn + 1):
             if node not in workernode_dict:
                 workernode_dict[node] = {'state': '?', 'np': 0, 'domainname': 'N/A', 'host': 'N/A', 'core_job_map': {}}
-                default_values_for_empty_nodes = dict([(yaml_key, '?') for yaml_key, part_name, _ in yaml.get_yaml_key_part(
-                    config, scheduler, outermost_key='workernodes_matrix')])
+                default_values_for_empty_nodes = {yaml_key: '?' for yaml_key, part_name, _ in yaml.get_yaml_key_part(
+                    config, scheduler, outermost_key='workernodes_matrix')}
                 workernode_dict[node].update(default_values_for_empty_nodes)
         return workernode_dict
 
